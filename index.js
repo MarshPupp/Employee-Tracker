@@ -1,11 +1,16 @@
 const inquirer = require('inquirer');
-const mysql = require('mysql2');
-const connection = require('./connection');
+const connection = require('./db/connection');
+
+connection.connect((err) => {
+    if (err) throw err;
+    console.log('connected to database.');
+    mainMenu()
+})
 
 function viewDepartment() {
-    connection.query('SELECT * FROM departments', (error, results) => {
+    connection.query('SELECT * FROM department', (error, results) => {
         if (error) throw error;
-        connection.table(results);
+        console.table(results);
         mainMenu();
     });
 }
@@ -13,7 +18,7 @@ function viewDepartment() {
 function viewRoles() {
     connection.query('SELECT * FROM roles', (error, results) => {
         if (error) throw error;
-        connection.table(results);
+        console.table(results);
         mainMenu();
     });
 }
@@ -21,7 +26,7 @@ function viewRoles() {
 function viewEmployees() {
     connection.query('SELECT * FROM employees', (error, results) => {
         if (error) throw error;
-        connection.table(results);
+        console.table(results);
         mainMenu();
     });
 }
@@ -34,7 +39,7 @@ function addDepartment() {
             message: 'Enter Department name:'
         }
     ]).then(answer => {
-        connection.query('INSERT INTO departments SET ?', answer, (error, results) => {
+        connection.query('INSERT INTO department SET ?', answer, (error, results) => {
             console.log('Department added successfully');
             mainMenu();
         });
@@ -181,4 +186,3 @@ function mainMenu(){
         }
     });
 }
-mainMenu()

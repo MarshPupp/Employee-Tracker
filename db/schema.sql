@@ -21,8 +21,8 @@ CREATE TABLE employees (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-    role_id INT,
+    roles_id INT,
     manager_id INT NULL,
-    FOREIGN KEY (role_id) REFERENCES role(id),
+    FOREIGN KEY (roles_id) REFERENCES roles(id),
     FOREIGN KEY (manager_id) REFERENCES employees(id)
 );

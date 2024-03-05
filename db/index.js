@@ -117,7 +117,6 @@ function updateEmployeeRole(){
                     mainMenu();
                     return;
                 }
-
                 const employee = results[0];
                 const newRoleId = parseInt(answer.roles_id);
 
@@ -156,7 +155,7 @@ function mainMenu(){
         ]).then(answer => {
         switch (answer.option) {
             case 'View all departments':
-            viewDepartments();
+            viewDepartment();
             break;
             case 'View all roles':
             viewRoles();
@@ -182,3 +181,4 @@ function mainMenu(){
         }
     });
 }
+mainMenu()

@@ -32,7 +32,7 @@ function viewEmployees() {
 }
 
 function addDepartment() {
-    inquirer.createPromptModule([
+    inquirer.prompt([
         {
             type: 'input',
             name: 'name',
@@ -47,7 +47,7 @@ function addDepartment() {
 }
 
 function addRole() {
-    inquirer.createPromptModule([
+    inquirer.prompt([
         {
             type: 'input',
             name: 'title',
@@ -57,17 +57,22 @@ function addRole() {
             type: 'input',
             name: 'salary',
             message: 'Enter Role salary'
+        },
+        {
+            type: 'input',
+            name: 'department_id',
+            message: 'Enter Role Department'
         }
     ]).then(answer => {
         connection.query('INSERT INTO roles SET ?', answer, (error, results) => {
-            console.log('Department added successfully');
+            console.log('Role added successfully');
             mainMenu();
         });
     });
 }
 
 function addEmployee() {
-    inquirer.createPromptModule([
+    inquirer.prompt([
         {
             type: 'input',
             name: 'first_name',
@@ -92,7 +97,7 @@ function addEmployee() {
 }
 
 function updateEmployeeRole(){
-    inquirer.createPromptModule([
+    inquirer.prompt([
         {
             type: 'input',
             name: 'first_name',

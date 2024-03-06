@@ -125,6 +125,7 @@ function updateEmployeeRole(){
                     return;
                 }
                 console.log('Employee role updated successfully')
+                mainMenu();
             }
         );
     });

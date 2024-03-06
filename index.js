@@ -56,12 +56,12 @@ function addRole() {
         {
             type: 'input',
             name: 'salary',
-            message: 'Enter Role salary'
+            message: 'Enter Role salary:'
         },
         {
             type: 'input',
             name: 'department_id',
-            message: 'Enter Role Department'
+            message: 'Enter Role Department id:'
         }
     ]).then(answer => {
         connection.query('INSERT INTO roles SET ?', answer, (error, results) => {
@@ -87,10 +87,13 @@ function addEmployee() {
             type: 'input',
             name: 'roles_id',
             message: "Enter the Employee's role:"
-        }
+        },
+        //{type: 'input', name: 'manager_id', message: "Enter Employee's Manager id:"}
     ]).then(answer => {
+        console.log(answer);
         connection.query('INSERT INTO employees SET ?', answer, (error, results) => {
             console.log('Employee added successfully');
+            console.log(error, results);
             mainMenu();
         });
     });
@@ -100,47 +103,28 @@ function updateEmployeeRole(){
     inquirer.prompt([
         {
             type: 'input',
-            name: 'first_name',
-            message: "What is the Employee's first name:"
-        },
-        {
-            type: 'input',
-            name: 'last_name',
-            message: "What is the Employee's last name:"
+            name: 'employees_id',
+            message: "What is the Employee's id number:"
         },
         {
             type: 'input',
             name: 'roles_id',
-            message: "What is the Employee's new role?"
+            message: "What is the Employee's new role:"
         }
     ]).then(answer => {
+        const newRoleId = parseInt(answer.roles_id);
+        const getEmployee = parseInt(answer.employees_id);
+
         connection.query(
-            'SELECT * FROM employees WHERE first_name = ? AND last_name = ?',
-            [answer.first_name, answer.last_name],
+            'UPDATE employees SET roles_id = ? WHERE id = ?',
+            [newRoleId, getEmployee],
             (error, results) => {
                 if (error) {
-                    console.error(error);
-                    return;
-                }
-                if (results.length === 0) {
-                    console.log('Employee not Found');
+                    console.log('Could not update employee role',error);
                     mainMenu();
                     return;
                 }
-                const employee = results[0];
-                const newRoleId = parseInt(answer.roles_id);
-
-                connection.query(
-                    'UPDATE employees SET roles_id = ? WHERE id = ?',
-                    [newRoleId, employees.id],
-                    (updateError, updateResults) => {
-                        if (updateError) {
-                            return;
-                        }
-                        console.log("Employee's role updated successfully");
-                        mainMenu();
-                    }
-                );
+                console.log('Employee role updated successfully')
             }
         );
     });

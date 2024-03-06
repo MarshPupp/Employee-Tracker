@@ -1,3 +1,5 @@
+USE employee_db;
+
 SET FOREIGN_KEY_CHECKS = 0;
 
 INSERT INTO department (name) VALUES
@@ -16,7 +18,7 @@ INSERT INTO roles (title, salary, department_id) VALUES
 ('Legal Team Lead',250000,4),
 ('Lawyer',190000,4);
 
-INSERT INTO employees (first_name, last_name,role_id,manager_id) VALUES
+INSERT INTO employees (first_name, last_name, roles_id, manager_id) VALUES
 ('John','Doe',1,NULL),
 ('Mike','Chan',2,1),
 ('Ashley','Rodriguez',3,NULL),
